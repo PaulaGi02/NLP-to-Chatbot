@@ -6,18 +6,21 @@ rules = {
         "#intro# #scene# #conflict# #dialogue# #twist# #almost_ending# #ending#"],
 
     "intro": [
-        "On a #weather#, #dinosaurs# woke up with a brilliant idea: open the first prehistoric restaurant.",
-        "It was a #weather#, and #dinosaurs# dreamed of changing the world one meal at a time.",
-        "Long before #firstname# lived, #dinosaurs# decided that politics were boring — it was time to cook instead." ],
+        "On a #weather#, #dinosaurs# woke up with a #idea.a#: open the first prehistoric restaurant.",
+        "It was a #weather#, and #dinosaurs# dreamed of changing the world one #meal# at a time.",
+        "Long before #firstname# lived, #dinosaurs# decided that #politics# were boring — it was time to #cook# instead." ],
+
+"idea": [ "brilliant idea", "wild dream", "strange craving", "political vision","fishy inspiration", "delicious plan", "culinary revolution",
+    "questionable ambition", "outrageous experiment","half-baked concept","bold agenda", "flaky proposal"],
 
 
     "firstNames": ["Aaliyah","Aaron", "Abby", "Abigail",  "Abraham", "Adam",  "Addison",
                    "Adrian", "Adriana", "Adrianna","Aidan"],
 
     "scene": [
-        "They set up a kitchen in the middle of a volcanic valley.",
-        "With lava bubbling nearby, they began mixing herbs, lava dust, and #fish# into a stew.",
-        "Soon the smell of roasted #fish# spread across the #setting#, drawing a curious crowd of hungry creatures."],
+        "They set up a #kitchen# in the middle of a #volcanic valley#.",
+        "With #lava bubbling# nearby, they began mixing #herbs, lava dust#, and #fish# into a stew.",
+        "Soon the smell of roasted #fish# spread across the #setting#, drawing a curious crowd of #hungry creatures#."],
 
     "setting": [
         "primeval jungle",
@@ -32,21 +35,27 @@ rules = {
         "Unfortunately, the head chef burned the #fish# after arguing about whether #dinosaurs# should live in a #governmentForms#."],
 
     "dialogue": [
-        "‘This isn’t just food,’ said #dinosaurs#, ‘this is culinary revolution!’",
-        "‘Politics and fish never mix,’ mumbled #dinosaurs# as they stirred the pot.",
-        "‘We shall rebuild under a #governmentForms#,’ shouted #dinosaurs#, holding up a fork like a sword."],
+        "‘This isn’t just #food#,’ said #dinosaurs#, ‘this is #culinary revolution#!’",
+        "‘Politics and fish never mix,’ mumbled #dinosaurs# as they #stirred the pot#.",
+        "‘We shall rebuild under a #governmentForms#,’ shouted #dinosaurs#, holding up a #fork# like a #sword#."],
 
     "twist": [
-        "Suddenly, the #fish# came to life and demanded to be appointed Minister of Seafood.",
-        "A passing meteorite landed on their kitchen, instantly inventing the concept of barbecue.",
-        "To everyone’s shock, the restaurant became a new #governmentForms#, and customers had to vote before eating."],
+        "Suddenly, the #fish# came to life and demanded to be appointed #Minister of Seafood#.",
+        "A passing #meteorite# landed on their #kitchen#, instantly inventing the concept of #barbecue#.",
+        "To everyone’s shock, the #restaurant# became a new #governmentForms#, and customers had to #vote# before #eating#."],
 
     "almost_ending": [
         "By sunset, #dinosaurs# was hailed as a hero — and the first restaurateur-president of the #governmentForms#.",
-        "In the end, all that remained was the smell of grilled #fish# and a legend about cooking, chaos, and courage.",
-        "They never rebuilt the restaurant, but every #weather#, the winds still smell faintly of #fish# and ambition."],
+        "In the end, all that remained was the smell of grilled #fish# and a legend about #cooking, chaos, and courage#.",
+        "They never rebuilt the #restaurant#, but every #weather#, the winds still smell #faintly# of #fish# and ambition."],
 
-    "ending": ["And this was the breaking news today, presented by #newspapers# "],
+    "ending": ["And this was the #topic#, presented by #newspapers# "],
+
+    "topic": [ "breaking news", "final broadcast", "tastiest scandal", "latest catastrophe","top story", "prehistoric headline",
+               "daily scoop", "midday special", "political meltdown", "meteor update","fishy revelation",  "governmental surprise",
+               "dinosaurs’ dilemma", "chef’s secret", "culinary crisis", "fossil exclusive"
+],
+
 
     "dinosaurs": [
         "Kangnasaurus", "Lophostropheus", "Spinophorosaurus", "Epachthosaurus", "Coelurosauria",
@@ -71,7 +80,7 @@ grammar = tracery.Grammar(rules)
 grammar.add_modifiers(base_english)
 
 for i in range(1):
-    (grammar.flatten('#origin#').split("\n"))
+    (grammar.flatten('#origin#'))
     text = grammar.flatten("#origin#")
     sentences = text.split(".")
     for s in sentences:

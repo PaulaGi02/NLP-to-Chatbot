@@ -8,7 +8,7 @@ rules = {
     "intro": [
         "On a #weather#, #dinosaurs# woke up with a #idea.a#: open the first prehistoric restaurant.",
         "It was a #weather#, and #dinosaurs# dreamed of changing the world one #meal# at a time.",
-        "Long before #firstname# lived, #dinosaurs# decided that #politics# were boring — it was time to #cook# instead."],
+        "Long before #firstNames# lived, #dinosaurs# decided that #politics# were boring — it was time to #cook# instead."],
 
     "weather": ["sunny day", "stormy morning", "rainy evening", "foggy night", "humid afternoon"],
 
@@ -187,7 +187,7 @@ rules = {
 grammar = tracery.Grammar(rules)
 grammar.add_modifiers(base_english)
 
-for i in range(1):
+for i in range(10):
     (grammar.flatten('#origin#'))
     text = grammar.flatten("#origin#")
     sentences = text.split(".")

@@ -4,6 +4,7 @@ from tracery.modifiers import base_english
 
 nlp = spacy.load("en_core_web_sm")
 text = open("aro.txt").read()
+text = text.replace ("¬", "")
 doc = nlp(text)
 
 nouns = list(set([token.lemma_ for token in doc if token.pos_ == "NOUN" and token.is_alpha]))

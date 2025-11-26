@@ -6,12 +6,11 @@ nlp = spacy.load("en_core_web_sm")
 text = open("aro.txt").read()
 doc = nlp(text)
 
-nouns = list(set([token.lemma_ for token in doc if token.pos_ == "NOUN"]))
-adj = list(set([token.lemma_ for token in doc if token.pos_ == "ADJ"]))
-verbs = list(set([token.lemma_ for token in doc if token.pos_ == "VERB"]))
-adv = list(set([token.lemma_ for token in doc if token.pos_ == "ADV"]))
+nouns = list(set([token.lemma_ for token in doc if token.pos_ == "NOUN" and token.is_alpha]))
+adj = list(set([token.lemma_ for token in doc if token.pos_ == "ADJ" and token.is_alpha]))
+verbs = list(set([token.lemma_ for token in doc if token.pos_ == "VERB" and token.is_alpha]))
+adv = list(set([token.lemma_ for token in doc if token.pos_ == "ADV" and token.is_alpha]))
 phrases = list(set([chunk.text for chunk in doc.noun_chunks]))
-
 
 rules = {
     "origin": [

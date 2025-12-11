@@ -3,7 +3,7 @@ Game Rules:
 - You're given a target word
 - Try to guess words that are semantically similar
 - The game shows you how close your guess is (similarity score)
-- Get 3 words with similarity > 0.5 to win!
+- Get 3 words with similarity above the mode-dependent threshold to win!
 """
 
 import spacy
@@ -31,10 +31,18 @@ class WordVectorGame:
         self.guesses = []
         self.successful_guesses = 0
 
+        # POS modes and corresponding tags
         self.pos_modes = {
-            "nouns": {"NOUN", "PROPN"},
+            "nouns": {"NOUN"},
             "verbs": {"VERB"},
             "adjectives": {"ADJ"}
+        }
+
+        # Mode-specific similarity thresholds
+        self.mode_thresholds = {
+            "nouns": 0.5,
+            "verbs": 0.4,
+            "adjectives": 0.3
         }
 
         self.current_mode = None
@@ -47,13 +55,17 @@ class WordVectorGame:
         self.successful_guesses = 0
 
         self.current_mode = random.choice(list(self.pos_modes.keys()))
+        current_threshold = self.mode_thresholds[self.current_mode]
 
         print("\n" + "=" * 50)
         print("WORD VECTOR ASSOCIATION GAME")
         print("=" * 50)
         print(f"\nTarget word: {self.target.upper()}")
         print("Find 3 words similar to the target!")
-        print("(Similarity score > 0.25 counts as a match)")
+        print(
+            f"(Similarity score > {current_threshold:.2f} "
+            f"counts as a match in {self.current_mode[:-1]} mode.)"
+        )
         print(f"ONLY {self.current_mode.upper()} allowed this round!")
         print("Type 'quit' to exit or 'new' for a new word\n")
 
@@ -66,11 +78,21 @@ class WordVectorGame:
         return similarity
 
     def give_feedback(self, similarity):
-        if similarity >= 0.7:
+        """
+        Feedback scales relative to the active mode's threshold:
+        - >= threshold + 0.2  -> VERY HOT
+        - >= threshold        -> MATCH
+        - >= threshold - 0.1  -> Warm
+        - >= 0.1              -> Cold
+        - else                -> Freezing
+        """
+        threshold = self.mode_thresholds[self.current_mode]
+
+        if similarity >= threshold + 0.2:
             return "🔥 VERY HOT! Extremely close!"
-        elif similarity >= 0.3:
+        elif similarity >= threshold:
             return "✅ MATCH! That's similar enough!"
-        elif similarity >= 0.2:
+        elif similarity >= threshold - 0.1:
             return "🌡️ Warm... getting there!"
         elif similarity >= 0.1:
             return "❄️ Cold... not very similar"
@@ -111,7 +133,8 @@ class WordVectorGame:
         if main_token.pos_ not in allowed_tags:
             print(
                 f"This round you must guess {self.current_mode[:-1]}s "
-                f"(allowed POS: {allowed_tags}). Your word '{main_token.text}' is '{main_token.pos_}'."
+                f"(allowed POS: {allowed_tags}). "
+                f"Your word '{main_token.text}' is tagged as '{main_token.pos_}'."
             )
             return True
 
@@ -127,7 +150,9 @@ class WordVectorGame:
         print(f"\n{feedback}")
         print(f"Similarity score: {similarity:.3f}")
 
-        if similarity >= 0.3:
+        # Use mode-specific threshold for counting matches
+        threshold = self.mode_thresholds[self.current_mode]
+        if similarity >= threshold:
             self.successful_guesses += 1
             print(f"Matches found: {self.successful_guesses}/3")
 

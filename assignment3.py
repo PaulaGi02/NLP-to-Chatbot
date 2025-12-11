@@ -78,14 +78,6 @@ class WordVectorGame:
         return similarity
 
     def give_feedback(self, similarity):
-        """
-        Feedback scales relative to the active mode's threshold:
-        - >= threshold + 0.2  -> VERY HOT
-        - >= threshold        -> MATCH
-        - >= threshold - 0.1  -> Warm
-        - >= 0.1              -> Cold
-        - else                -> Freezing
-        """
         threshold = self.mode_thresholds[self.current_mode]
 
         if similarity >= threshold + 0.2:
